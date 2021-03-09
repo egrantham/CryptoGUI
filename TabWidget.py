@@ -6,7 +6,7 @@ Created on Sat Jan  2 16:22:31 2021
 
 The main idea of this project is to make use of my cryptography knowledge
 to make a GUI in tkinter that performs various functions- caesar, one-time
-pad, freq analysis. Add this to my repo
+pad, freq analysis.
 """
 
 import tkinter as tk					 
