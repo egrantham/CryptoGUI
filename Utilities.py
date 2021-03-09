@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Mar  4 11:35:56 2021
+Provides some supporting functions to be used in the main file
 
 @author: Ethan
 """
 
 def decipher(ciphertext, key, alphaLen):
+    """
+    Translate from ciphertext to plaintext using Caesar cipher
+    """
     decoded = ''
     for i in range(len(ciphertext)):
         new = chr(ord(ciphertext[i])-key)
@@ -15,6 +19,9 @@ def decipher(ciphertext, key, alphaLen):
     return decoded
 
 def encipher(plaintext, key, alphaLen):
+    """
+    Translate from plaintext to ciphertext using Caesa cipher
+    """
     encoded = ''
     
     for i in range(len(plaintext)):
@@ -24,7 +31,10 @@ def encipher(plaintext, key, alphaLen):
         encoded += new
     return encoded    
 
-def getFile():
+def readFile():
+    """
+    Open up given file, return the text it contains
+    """
     from tkinter.filedialog import askopenfilename
     filename = askopenfilename()
     f=open(filename)
@@ -47,7 +57,7 @@ def count():
     """Make dict of chars and counts of their occurences in input file. 
     For each character encountered, adjust the count."""
     
-    text = cleanString(getFile()).lower()
+    text = cleanString(readFile()).lower()
     
     # keys are chars, values are # of occurences
     charDict = {}
@@ -60,4 +70,3 @@ def count():
         else:
             charDict[letter] += 1
     return charDict
-            
