@@ -48,16 +48,18 @@ def reset():
     global key
     key = 3
 
-def setKey():
+def getKey():
     global key
     key = int(keyVar.get())
     
 def setOutput():
+    getKey()
     plaintext = inputField.get()
     ciphertext = Utilities.encipher(plaintext, key, alphaLen)
     outputVar.set(ciphertext)
     
 def setInput():
+    getKey()
     ciphertext = outputField.get()
     plaintext = Utilities.decipher(ciphertext, key, alphaLen)
     inputVar.set(plaintext)
@@ -115,10 +117,7 @@ ttk.Entry(tab1, textvariable = keyVar).grid(
         row = 2,
         pady = 30)
 
-        # Buttons
-ttk.Button(tab1, text= "Change Key",command=setKey).grid(
-        column = 2,
-        row = 2) 
+        # Buttons 
 
 ttk.Button(tab1, text= "Encipher",command=setOutput).grid(
         column = 1,
