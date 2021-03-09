@@ -32,11 +32,22 @@ def getFile():
     f.close()
     return text
 
+def cleanString(text):
+    """
+    This function removes non-letter characters from the text.
+    """
+    cleanedText = ''
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    for char in text:
+        if char in alphabet:
+            cleanedText += char
+    return cleanedText
+
 def count():
     """Make dict of chars and counts of their occurences in input file. 
     For each character encountered, adjust the count."""
     
-    text = getFile().lower()
+    text = cleanString(getFile()).lower()
     
     # keys are chars, values are # of occurences
     charDict = {}

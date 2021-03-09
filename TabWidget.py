@@ -12,6 +12,9 @@ pad, freq analysis.
 import tkinter as tk					 
 from tkinter import ttk 
 import Utilities
+import matplotlib
+import matplotlib.pyplot as plt
+matplotlib.use('TKAgg')
 
 # Global variables: key and length of the alphabet
 key = 3
@@ -19,24 +22,26 @@ alphaLen = 26
 
 ########################################
 
-def printFreqs():    
-# handle output to the GUI:
-    charDict = Utilities.count()
-    rowNum = 4
-    colNum = 1
+def plotFreqs():
+    plt.style.use('ggplot')
     
-    for char in charDict:
-        ttk.Label(tab2, text=""+char+": "+str(charDict[char])).grid(
-                column = colNum,
-                row = rowNum,
-                padx = 20)
-        rowNum += 1
-        if rowNum > 10:
-            rowNum -= 7
-            colNum += 1
+    charDict = Utilities.count()
+    chars = [key for key in charDict.keys()]
+    counts = [value for value in charDict.values()]
+
+    # generate a list: (0,1,2,...,# of chars) for bar graph    
+    x_pos = [i for i, _ in enumerate(chars)]
+    
+    plt.bar(x_pos, counts, color='green')
+    plt.xlabel("Letters")
+    plt.ylabel("Occurences")
+    plt.title("Frequency of Letters in Text File")
+    plt.xticks(x_pos, chars)
+    
+    plt.show()
 
 def reset():
-    # just reset all values to default
+    # resets all values to default
     inputVar.set("")
     outputVar.set("")
     keyVar.set("3") 
@@ -74,7 +79,7 @@ outputVar = tk.StringVar()
 inputVar = tk.StringVar()
 
     # Caesar Cipher tab
-        # Input      
+        # Input Field   
 ttk.Label(tab1, text ="Plaintext").grid(
         column = 0,
         row = 0,
@@ -87,7 +92,7 @@ inputField.grid(
         padx = 30,
         pady = 30)
 
-    # Output    
+        # Output Field
 ttk.Label(tab1, text = "Ciphertext").grid(
         column = 0,
         row = 1)
@@ -98,7 +103,7 @@ outputField.grid(
         padx = 30,
         pady = 30)
 
-    # Key
+        # Key Entry Field
 keyVar.set("3")
 
 ttk.Label(tab1, text = "Key").grid(
@@ -110,10 +115,11 @@ ttk.Entry(tab1, textvariable = keyVar).grid(
         row = 2,
         pady = 30)
 
+        # Buttons
 ttk.Button(tab1, text= "Change Key",command=setKey).grid(
         column = 2,
         row = 2) 
-        # Buttons
+
 ttk.Button(tab1, text= "Encipher",command=setOutput).grid(
         column = 1,
         row = 3,
@@ -129,35 +135,15 @@ ttk.Button(tab1, text= "Reset All", command=reset).grid(
         row = 3,
         pady = 30)
 
-# Frequency Analysis tab
+    # Frequency Analysis tab
 ttk.Label(tab2, text = "Please select a file for frequency analysis: ").grid(
         column = 0,
         row = 0,
         pady = 20)
 
-ttk.Button(tab2, text= "Browse", command=printFreqs).grid(
+ttk.Button(tab2, text= "Browse", command=plotFreqs).grid(
         column = 0,
         row = 2)
 
 tabControl.pack(expand = 1, fill ="both") 
 root.mainloop()
-
-#keeping this in case I need it? 
-
-#ttk.Scale(tab1,from_ = 0, to = 26,  
-#        orient = tk.HORIZONTAL) .grid(
-#        column = 0,
-#        row = 3,
-#        padx = 30,
-
-#        pady = 30)
-#from functools import partial
-#partial(encipher,inputField.get(),key))
-#label1.grid(row = 10, column = 1)
-
-#v1 = tk.DoubleVar() 
-#  
-#def show1():   
-#      
-#    sel = v1.get() 
-#    keyLabel.config(text = sel, font =("Courier", 14))  
