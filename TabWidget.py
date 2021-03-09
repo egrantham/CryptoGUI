@@ -15,6 +15,7 @@ import Utilities
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TKAgg')
+from tkinter.filedialog import asksaveasfile 
 
 # Global variables: key and length of the alphabet
 key = 3
@@ -52,22 +53,46 @@ def getKey():
     global key
     key = int(keyVar.get())
     
-def setOutput():
+def encryptOutput():
     getKey()
     plaintext = inputField.get()
     ciphertext = Utilities.encipher(plaintext, key, alphaLen)
     outputVar.set(ciphertext)
     
-def setInput():
+def decryptInput():
     getKey()
     ciphertext = outputField.get()
     plaintext = Utilities.decipher(ciphertext, key, alphaLen)
     inputVar.set(plaintext)
 
+def getPlainFile():
+    text = Utilities.readFile()
+    inputVar.set(text)
+
+def getCipherFile():
+    text = Utilities.readFile()
+    outputVar.set(text)
+    
+def savePlain(): 
+    files = [('All Files', '*.*'),  
+             ('Text Document', '*.txt')] 
+    file = asksaveasfile(filetypes = files, defaultextension = '.txt')  
+    text = inputVar.get()
+    file.write(text)
+    file.close()
+
+def saveCipher(): 
+    files = [('All Files', '*.*'),  
+             ('Text Document', '*.txt')] 
+    file = asksaveasfile(filetypes = files, defaultextension = '.txt')  
+    text = outputVar.get()
+    file.write(text)
+    file.close()
+
 # code to create all the stuff for GUI
 root = tk.Tk() 
 root.title("CryptoGUI")
-root.geometry("450x350") 
+root.geometry("550x350") 
 tabControl = ttk.Notebook(root) 
 
 tab1 = ttk.Frame(tabControl) 
@@ -118,13 +143,29 @@ ttk.Entry(tab1, textvariable = keyVar).grid(
         pady = 30)
 
         # Buttons 
+ttk.Button(tab1, text = 'Save', command = savePlain).grid(
+        column = 3,
+        row = 0)
+ttk.Button(tab1, text = 'Save', command = saveCipher).grid(
+        column = 3,
+        row = 1)
 
-ttk.Button(tab1, text= "Encipher",command=setOutput).grid(
+ttk.Button(tab1, text= "Select", command=getPlainFile).grid(
+        column = 2,
+        row = 0,
+        padx = 30)
+
+ttk.Button(tab1, text= "Select", command=getCipherFile).grid(
+        column = 2,
+        row = 1,
+        padx = 30)
+
+ttk.Button(tab1, text= "Encipher",command=encryptOutput).grid(
         column = 1,
         row = 3,
         pady = 30) 
 
-ttk.Button(tab1, text= "Decipher",command=setInput).grid(
+ttk.Button(tab1, text= "Decipher",command=decryptInput).grid(
         column = 0,
         row = 3,
         pady = 30) 
