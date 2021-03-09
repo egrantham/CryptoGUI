@@ -5,7 +5,7 @@ This is a small application I built using a Python module called tkinter to demo
 # What I Learned
 
 * How to use tkinter to create quick GUIs for Python (used Buttons, Labels, Entry Fields, filedialog)
-* How to embed plots into tkinter using matplotlib
+* How to embed graphs into tkinter using matplotlib
 * Basics of Cryptography (terminology, famous ciphers, etc.)
 
 # Features
