@@ -1,6 +1,12 @@
 # CryptoGUI
 
-This is a small application I built using a Python module called tkinter to demonstrate some cryptography techniques.
+This is a small application I built using a Python module called tkinter to demonstrate some cryptography techniques. 
+
+# To Run The Program
+
+1. Clone the repository
+2. Make sure you have installed a recent version of Python (as of writing this I believe 3.7 or later should be fine) https://www.python.org/downloads/
+3. Run the TabWidget.py file from the command line or your favorite IDE! 
 
 # What I Learned
 
